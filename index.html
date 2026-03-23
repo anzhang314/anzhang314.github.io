@@ -1091,6 +1091,18 @@
         return (n >= 1000 ? '~' + (n / 1000).toFixed(1) + 'k' : n) + ' ⭐';
     }
 
+    function applyData(data) {
+        repos.forEach(function (item) {
+            var n = data[item.id];
+            if (n == null) return;
+            var el = document.getElementById(item.id);
+            if (!el) return;
+            el.textContent = fmt(n);
+            var card = el.closest ? el.closest('.proj-card') : null;
+            if (card) card.dataset.stars = n;
+        });
+    }
+
     function sortGrid(grid) {
         var cards = Array.from(grid.querySelectorAll(':scope > .proj-card'));
         if (cards.length < 2) return;
@@ -1104,24 +1116,33 @@
         });
     }
 
-    var promises = repos.map(function (item) {
-        return fetch('https://api.github.com/repos/' + item.repo)
-            .then(function (r) { return r.json(); })
-            .then(function (data) {
-                var el = document.getElementById(item.id);
-                if (el && data.stargazers_count != null) {
-                    var n = data.stargazers_count;
-                    el.textContent = fmt(n);
-                    var card = el.closest ? el.closest('.proj-card') : null;
-                    if (card) card.dataset.stars = n;
-                }
-            })
-            .catch(function () {});
-    });
-
-    Promise.all(promises).then(function () {
+    function sortAll() {
         document.querySelectorAll('.proj-grid-wrap').forEach(sortGrid);
-    });
+    }
+
+    // 1. Load stars.json (updated by GitHub Actions every 6h, same-origin, no rate limit)
+    fetch('/stars.json?' + Date.now())
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) { applyData(data); sortAll(); })
+        .catch(function () {})
+        .finally(function () {
+            // 2. Also try live GitHub API to get freshest counts
+            var promises = repos.map(function (item) {
+                return fetch('https://api.github.com/repos/' + item.repo)
+                    .then(function (r) { return r.json(); })
+                    .then(function (data) {
+                        var el = document.getElementById(item.id);
+                        if (el && data.stargazers_count != null) {
+                            var n = data.stargazers_count;
+                            el.textContent = fmt(n);
+                            var card = el.closest ? el.closest('.proj-card') : null;
+                            if (card) card.dataset.stars = n;
+                        }
+                    })
+                    .catch(function () {});
+            });
+            Promise.all(promises).then(sortAll);
+        });
 })();
 </script>
 
