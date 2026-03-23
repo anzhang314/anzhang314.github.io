@@ -1,12 +1,12 @@
 {
-  "stars-alphasteer": 44,
-  "stars-alphaalign": 2,
-  "stars-alpharec": 100,
-  "stars-minionecrec": 1293,
+  "stars-alphasteer": 45,
+  "stars-alphaalign": 3,
+  "stars-alpharec": 101,
+  "stars-minionecrec": 1300,
   "stars-agent4rec": 470,
-  "stars-memocr": 4,
-  "stars-riskybench": 3,
+  "stars-memocr": 5,
+  "stars-riskybench": 4,
   "stars-sdpo": 97,
   "stars-ldagent": 76,
-  "stars-selfverify": 7
+  "stars-selfverify": 8
 }
