@@ -280,7 +280,7 @@
             <i class="fa-solid fa-file-lines"></i> OpenReview
         </a>
         <span class="pubs-hero-sep">·</span>
-        <span>30+ top-tier papers &nbsp;·&nbsp; 3,200+ citations &nbsp;·&nbsp; h-index = 27</span>
+        <span id="scholar-stats">30+ top-tier papers &nbsp;·&nbsp; 3,200+ citations &nbsp;·&nbsp; h-index = 27</span>
     </div>
 </div>
 <div class="wave-wrap">
@@ -948,6 +948,25 @@
             }
         });
     });
+})();
+</script>
+
+<script>
+/* ── Scholar stats loader ── */
+(function () {
+    fetch('/scholar_stats.json?' + Date.now())
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+            var el = document.getElementById('scholar-stats');
+            if (!el || !d.citations) return;
+            var pubs  = d.publications || 30;
+            var cites = d.citations >= 1000
+                ? (Math.floor(d.citations / 100) * 100).toLocaleString() + '+'
+                : d.citations + '+';
+            el.innerHTML = pubs + '+ top-tier papers &nbsp;&middot;&nbsp; '
+                + cites + ' citations &nbsp;&middot;&nbsp; h-index = ' + d.hindex;
+        })
+        .catch(function () {});
 })();
 </script>
 

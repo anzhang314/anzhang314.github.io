@@ -1,0 +1,65 @@
+name: Update Google Scholar Stats
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'   # every 12 hours
+  workflow_dispatch:
+
+jobs:
+  update-scholar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install scholarly
+        run: pip install scholarly
+
+      - name: Fetch Scholar stats
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          from scholarly import scholarly
+
+          SCHOLAR_ID = 'BcX7GJcAAAAJ'
+
+          try:
+              print(f"Fetching author {SCHOLAR_ID}...")
+              author = scholarly.search_author_id(SCHOLAR_ID)
+              author = scholarly.fill(author, sections=['basics', 'indices', 'counts'])
+              citations = author.get('citedby', 0)
+              hindex    = author.get('hindex', 0)
+              pubs      = author.get('citedby5y') or 0   # fallback
+              # Get actual publication count
+              pub_list  = author.get('publications', [])
+              pub_count = len(pub_list) if pub_list else 0
+              print(f"citations={citations}, hindex={hindex}, publications={pub_count}")
+              data = {
+                  "citations":    citations,
+                  "hindex":       hindex,
+                  "publications": pub_count
+              }
+              with open('scholar_stats.json', 'w') as f:
+                  json.dump(data, f)
+              print("Written to scholar_stats.json")
+          except Exception as e:
+              print(f"Error: {e}", file=sys.stderr)
+              sys.exit(1)
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add scholar_stats.json
+          git diff --staged --quiet && echo "No changes." || (
+            git commit -m "chore: update Google Scholar stats [skip ci]"
+            git push
+          )
