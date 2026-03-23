@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Zhang | Professor, USTC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1e293b;
+            line-height: 1.75;
+            background: #fafafa;
+        }
+        a { color: #7c3aed; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 54px;
+            background: rgba(13, 8, 32, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .nav-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.18s;
+        }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-links a.active { color: #c4b5fd; text-decoration: none; }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(140deg, #0d0820 0%, #2e1065 45%, #5b21b6 100%);
+            padding: 110px 0 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%; right: -10%;
+            width: 70%; height: 160%;
+            background: radial-gradient(ellipse, rgba(124,58,237,0.25) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%; left: -5%;
+            width: 50%; height: 120%;
+            background: radial-gradient(ellipse, rgba(139,92,246,0.18) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .hero-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 3.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-photo { flex-shrink: 0; }
+        .hero-photo img {
+            width: 172px; height: 172px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            border: 3px solid rgba(255,255,255,0.28);
+            box-shadow: 0 0 0 6px rgba(124,58,237,0.22), 0 12px 40px rgba(0,0,0,0.45);
+        }
+        .hero-text h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+            margin-bottom: 0.45rem;
+        }
+        .hero-subtitle {
+            font-size: 0.73rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.52);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 1.3rem;
+        }
+        .hero-affil {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            color: rgba(255,255,255,0.82);
+            font-size: 0.92rem;
+            margin-bottom: 0.3rem;
+        }
+        .hero-affil a { color: rgba(255,255,255,0.82); }
+        .hero-affil a:hover { color: #fff; text-decoration: underline; }
+        .hero-affil i { width: 15px; font-size: 0.85rem; color: rgba(255,255,255,0.45); flex-shrink: 0; }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.5rem; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.42rem 1.05rem;
+            border-radius: 9999px;
+            font-size: 0.83rem;
+            font-weight: 500;
+            transition: all 0.18s;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: rgba(255,255,255,0.2);
+            text-decoration: none;
+            color: #fff;
+            border-color: rgba(255,255,255,0.35);
+        }
+
+        /* ── WAVE ── */
+        .wave-wrap {
+            background: linear-gradient(140deg, #0d0820 0%, #2e1065 45%, #5b21b6 100%);
+            line-height: 0;
+        }
+        .wave-wrap svg { display: block; }
+
+        /* ── CONTENT ── */
+        .content { background: #fafafa; padding: 3.5rem 0 5rem; }
+        .container { max-width: 920px; margin: 0 auto; padding: 0 2.5rem; }
+
+        /* ── SECTION ── */
+        .section { margin-bottom: 3.8rem; }
+        .section-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #2e1065;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 38px; height: 3px;
+            background: linear-gradient(90deg, #7c3aed, #c084fc);
+            margin-top: 0.4rem;
+            border-radius: 2px;
+        }
+
+        /* ── BIO ── */
+        .bio p { color: #374151; font-size: 0.96rem; margin-bottom: 0.9rem; }
+        .hl {
+            display: inline-block;
+            background: #f5f3ff;
+            color: #6d28d9;
+            padding: 0.08rem 0.55rem;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.92em;
+        }
+
+        /* ── RESEARCH INTEREST CARDS ── */
+        .ri-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.1rem;
+            margin-top: 1.6rem;
+        }
+        .ri-card {
+            background: #fff;
+            border: 1px solid #e9e3f8;
+            border-radius: 14px;
+            padding: 1.35rem 1.25rem 1.2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ri-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(109,40,217,0.1);
+        }
+        .ri-icon {
+            width: 40px; height: 40px;
+            background: #f5f3ff;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 0.85rem;
+            font-size: 1.05rem;
+            color: #7c3aed;
+        }
+        .ri-card h4 { font-size: 0.88rem; font-weight: 700; color: #1e293b; margin-bottom: 0.45rem; line-height: 1.3; }
+        .ri-card p { font-size: 0.78rem; color: #64748b; line-height: 1.55; margin-bottom: 0.75rem; }
+        .ri-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+        .ri-tag {
+            font-size: 0.7rem;
+            padding: 0.13rem 0.52rem;
+            background: #f5f3ff;
+            color: #6d28d9;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+
+        /* ── RESEARCH TOPIC PANELS ── */
+        .rt-panel {
+            background: #fff;
+            border: 1px solid #e9e3f8;
+            border-radius: 12px;
+            padding: 1.15rem 1.4rem;
+            margin-top: 0.9rem;
+        }
+        .rt-header { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.65rem; }
+        .rt-header i { color: #7c3aed; font-size: 0.9rem; }
+        .rt-header strong { font-size: 0.92rem; color: #1e293b; }
+        .rt-list { list-style: none; padding: 0; }
+        .rt-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.855rem;
+            color: #4b5563;
+            margin-bottom: 0.38rem;
+            line-height: 1.5;
+        }
+        .rt-list li::before { content: '›'; color: #7c3aed; font-weight: 700; flex-shrink: 0; margin-top: 0.02rem; }
+        .rt-list a { color: #7c3aed; }
+        .rt-list a:hover { text-decoration: underline; }
+
+        /* ── RECRUITING ── */
+        .recruit-box {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border: 1px solid #ddd6fe;
+            border-radius: 14px;
+            padding: 1.5rem 1.8rem;
+            font-size: 0.92rem;
+            color: #4c1d95;
+            line-height: 1.7;
+        }
+        .recruit-box strong { color: #6d28d9; }
+
+        /* ── PROJECT SHOWCASE ── */
+        .proj-intro {
+            color: #6b7280;
+            font-size: 0.88rem;
+            margin-bottom: 1.5rem;
+        }
+        .proj-intro a { color: #7c3aed; }
+        .proj-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+        }
+        /* 5 items: last row center the remaining 2 */
+        .proj-grid .proj-card:nth-child(4) { margin-left: calc(50% + 0.6rem); }
+        .proj-grid .proj-card:nth-last-child(2):nth-child(3n+1),
+        .proj-grid .proj-card:nth-last-child(1):nth-child(3n+2) {
+            /* auto centering handled by grid */
+        }
+        .proj-card {
+            background: #fff;
+            border: 1px solid #e9e3f8;
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .proj-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(109,40,217,0.13);
+        }
+        .proj-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2e1065, #7c3aed);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .proj-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .proj-img-placeholder {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: -0.03em;
+            text-align: center;
+            padding: 1rem;
+            line-height: 1.2;
+        }
+        .proj-body {
+            padding: 1rem 1.1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            flex: 1;
+        }
+        .proj-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .proj-name a { color: #1e293b; }
+        .proj-name a:hover { color: #7c3aed; text-decoration: none; }
+        .proj-cat {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #7c3aed;
+            background: #f5f3ff;
+            display: inline-block;
+            padding: 0.12rem 0.55rem;
+            border-radius: 9999px;
+            width: fit-content;
+        }
+        .proj-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+        .proj-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.3rem;
+        }
+        .proj-stars {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #92400e;
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            padding: 0.18rem 0.65rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            white-space: nowrap;
+        }
+        .proj-link {
+            font-size: 0.78rem;
+            color: #7c3aed;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .proj-link:hover { text-decoration: underline; }
+
+        .proj-grid-wrap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        /* category group */
+        .proj-group { margin-bottom: 2.2rem; }
+        .proj-group-label {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #4c1d95;
+            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid #ede9fe;
+        }
+        .proj-group-label i { color: #7c3aed; font-size: 0.9rem; }
+        /* center the last partial row in a 4-col grid */
+        .proj-row-center {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .proj-row-center .proj-card {
+            width: calc((100% - 3rem) / 4);
+            flex-shrink: 0;
+        }
+
+        /* ── NEWS ── */
+        .news-list { list-style: none; padding: 0; }
+        .news-item {
+            display: flex;
+            gap: 1.2rem;
+            padding: 1.05rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .news-item:last-child { border-bottom: none; }
+        .news-date {
+            flex-shrink: 0;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #7c3aed;
+            background: #f5f3ff;
+            border: 1px solid #ddd6fe;
+            padding: 0.2rem 0.65rem;
+            border-radius: 6px;
+            height: fit-content;
+            white-space: nowrap;
+            margin-top: 0.05rem;
+        }
+        .news-body strong { display: block; font-size: 0.88rem; color: #1e293b; margin-bottom: 0.2rem; }
+        .news-body .note { font-size: 0.82rem; color: #6b7280; margin-bottom: 0.3rem; }
+        .news-papers { display: flex; flex-direction: column; gap: 0.22rem; margin-top: 0.35rem; }
+        .news-papers a {
+            font-size: 0.82rem;
+            color: #7c3aed;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            line-height: 1.45;
+        }
+        .news-papers a::before { content: '📄'; flex-shrink: 0; font-size: 0.75rem; margin-top: 0.1rem; }
+        .news-papers a:hover { text-decoration: underline; }
+
+        /* ── SERVICES ── */
+        .services-box {
+            background: #fff;
+            border: 1px solid #e9e3f8;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.9rem;
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        /* ── AWARDS ── */
+        .award-list { list-style: none; padding: 0; }
+        .award-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+            color: #374151;
+        }
+        .award-item:last-child { border-bottom: none; }
+        .award-item i { color: #f59e0b; flex-shrink: 0; margin-top: 0.2rem; }
+
+        /* ── TIMELINE ── */
+        .timeline { list-style: none; padding: 0; }
+        .tl-item {
+            position: relative;
+            padding: 0.55rem 0 0.55rem 2rem;
+            border-left: 2px solid #e9e3f8;
+            margin-left: 0.6rem;
+        }
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -5px; top: 1.05rem;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #7c3aed;
+        }
+        .tl-year { font-size: 0.78rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.1rem; }
+        .tl-desc { font-size: 0.9rem; color: #1e293b; font-weight: 500; }
+        .tl-sub { font-size: 0.82rem; color: #6b7280; margin-top: 0.15rem; }
+        .tl-sub a { color: #6b7280; }
+        .tl-sub a:hover { color: #7c3aed; text-decoration: underline; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid #ede9fe;
+            background: #fafafa;
+        }
+        footer a { color: #94a3b8; }
+        footer a:hover { color: #7c3aed; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .proj-grid-wrap { grid-template-columns: repeat(3, 1fr); }
+            .proj-row-center .proj-card { width: calc((100% - 2rem) / 3); }
+        }
+        @media (max-width: 768px) {
+            .ri-grid { grid-template-columns: 1fr 1fr; }
+            .hero-inner { flex-direction: column; text-align: center; gap: 1.8rem; }
+            .hero-affil { justify-content: center; }
+            .hero-buttons { justify-content: center; }
+            .hero-photo img { width: 145px; height: 145px; }
+            .hero-text h1 { font-size: 2.1rem; }
+            nav { padding: 0 1.2rem; }
+            .nav-links { gap: 1.2rem; }
+            .proj-grid-wrap { grid-template-columns: 1fr 1fr; }
+            .proj-row-center .proj-card { width: calc((100% - 1rem) / 2); }
+        }
+        @media (max-width: 480px) {
+            .ri-grid { grid-template-columns: 1fr; }
+            .proj-grid-wrap { grid-template-columns: 1fr; }
+            .proj-row-center .proj-card { width: 100%; }
+            .nav-links { gap: 0.8rem; }
+            .nav-links a { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav>
+    <span class="nav-name">An Zhang</span>
+    <ul class="nav-links">
+        <li><a href="#about" class="active">Home</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="publications.html">Publications</a></li>
+    </ul>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="about">
+    <div class="hero-inner">
+        <div class="hero-photo">
+            <img src="image/profile.jpg" alt="An Zhang">
+        </div>
+        <div class="hero-text">
+            <h1>An Zhang</h1>
+            <p class="hero-subtitle">Professor &nbsp;·&nbsp; LLM &amp; AI Agents &nbsp;·&nbsp; Personalization &nbsp;·&nbsp; Trustworthy AI</p>
+
+            <div class="hero-affil">
+                <i class="fa-solid fa-flask-vial"></i>
+                <a href="https://alphalab-ustc.github.io/index.html" target="_blank">Alpha Lab</a>
+            </div>
+            <div class="hero-affil">
+                <i class="fa-solid fa-building-columns"></i>
+                <a href="https://saids.ustc.edu.cn/main.htm" target="_blank">School of Artificial Intelligence and Data Science, USTC</a>
+            </div>
+            <div class="hero-affil">
+                <i class="fa-solid fa-envelope"></i>
+                <span>an_zhang [at] ustc.edu.cn</span>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="https://scholar.google.com.sg/citations?user=BcX7GJcAAAAJ&hl=en" target="_blank" class="btn">
+                    <i class="ai ai-google-scholar"></i> Google Scholar
+                </a>
+                <a href="publications.html" class="btn">
+                    <i class="fa-solid fa-book-open"></i> Publications
+                </a>
+                <a href="https://alphalab-ustc.github.io/index.html" target="_blank" class="btn">
+                    <i class="fa-solid fa-users"></i> Alpha Lab
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Wave -->
+<div class="wave-wrap">
+    <svg viewBox="0 0 1440 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:64px;">
+        <path d="M0,32 C240,64 480,0 720,28 C960,56 1200,8 1440,32 L1440,64 L0,64 Z" fill="#fafafa"/>
+    </svg>
+</div>
+
+<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+<div class="content">
+<div class="container">
+
+    <!-- Biography -->
+    <section class="section bio" id="biography">
+        <h2 class="section-title">Biography</h2>
+        <p>
+            I am a Professor at the <a href="https://www.ustc.edu.cn/" target="_blank">University of Science and Technology of China (USTC)</a>,
+            where I lead the <a href="https://alphalab-ustc.github.io/index.html" target="_blank">Alpha Lab</a>.
+            Prior to that, I was a Postdoctoral Research Fellow in
+            <a href="https://www.nextcenter.org/team" target="_blank">NExT++ Lab</a>,
+            National University of Singapore, working with
+            <a href="https://www.chuatatseng.com/" target="_blank">Prof. Tat-Seng Chua</a>.
+            I obtained my Ph.D. from the National University of Singapore in 2021 and joined USTC in 2025.
+        </p>
+        <p>
+            At <a href="https://alphalab-ustc.github.io/index.html" target="_blank">Alpha Lab</a>,
+            my colleagues, students, and collaborators work together to develop
+            <span class="hl">foundation models</span> (large language models &amp; diffusion models) and
+            <span class="hl">AI Agents</span>, with an emphasis on understanding the
+            <strong>capabilities and properties</strong> of next-generation general AI models.
+            Our research is motivated by, and contributes to, real-world applications in
+            <strong>personalization</strong> (e.g., recommender systems),
+            <strong>education</strong> (e.g., smart campuses), and
+            <strong>safety</strong> (e.g., LLM Safety).
+        </p>
+    </section>
+
+    <!-- Research Interests -->
+    <section class="section" id="research">
+        <h2 class="section-title">Research Interests</h2>
+        <div class="ri-grid">
+            <div class="ri-card">
+                <div class="ri-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h4>Personalization</h4>
+                <p>LLM &amp; diffusion-powered recommender systems and next-gen personalized AI.</p>
+                <div class="ri-tags">
+                    <span class="ri-tag">LLM as Rec</span>
+                    <span class="ri-tag">Diffusion Rec</span>
+                    <span class="ri-tag">GenRec</span>
+                </div>
+            </div>
+            <div class="ri-card">
+                <div class="ri-icon"><i class="fa-solid fa-robot"></i></div>
+                <h4>Agentic LLM</h4>
+                <p>Building autonomous AI agents with planning, tool-use, memory, and long-horizon decision-making.</p>
+                <div class="ri-tags">
+                    <span class="ri-tag">AI Agents</span>
+                    <span class="ri-tag">Tool Use</span>
+                    <span class="ri-tag">Memory</span>
+                </div>
+            </div>
+            <div class="ri-card">
+                <div class="ri-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                <h4>LLM Reasoning</h4>
+                <p>Advancing chain-of-thought, self-verification, and deep reasoning capabilities in LLMs.</p>
+                <div class="ri-tags">
+                    <span class="ri-tag">Chain-of-Thought</span>
+                    <span class="ri-tag">Self-Verify</span>
+                    <span class="ri-tag">Long Reasoning</span>
+                </div>
+            </div>
+            <div class="ri-card">
+                <div class="ri-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4>Trustworthy LLM</h4>
+                <p>LLM safety, alignment, and robust AI systems for safe real-world deployment.</p>
+                <div class="ri-tags">
+                    <span class="ri-tag">Safety</span>
+                    <span class="ri-tag">Alignment</span>
+                    <span class="ri-tag">Robustness</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="rt-panel">
+            <div class="rt-header">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <strong>Personalization</strong>
+            </div>
+            <ul class="rt-list">
+                <li>Tutorials:
+                    <a href="https://large-genrec.github.io/www2025.html" target="_blank">[WWW 2025 Generative Recommendation Models]</a>
+                    <a href="#" target="_blank">[CIKM 2025]</a>
+                </li>
+                <li>LLM as Recommender:
+                    <a href="#">[ReRe]</a>
+                    <a href="https://arxiv.org/abs/2406.09215" target="_blank">[NeurIPS 2024 S-DPO]</a>
+                    <a href="https://arxiv.org/abs/2310.10108" target="_blank">[SIGIR 2024 Agent4Rec]</a>
+                </li>
+                <li>LLM-enhanced Recommender:
+                    <a href="https://arxiv.org/abs/2504.19218" target="_blank">[SIGIR 2025 AlphaFuse]</a>
+                    <a href="https://arxiv.org/abs/2506.21579" target="_blank">[KDD 2025 LLM2Rec]</a>
+                    <a href="https://arxiv.org/abs/2407.05441" target="_blank">[ICLR 2025 AlphaRec]</a>
+                </li>
+                <li>Diffusion as Recommender:
+                    <a href="https://openreview.net/forum?id=dqBkZ9rmSF" target="_blank">[NeurIPS 2025 PrefGrow]</a>
+                    <a href="https://arxiv.org/abs/2410.13117" target="_blank">[ICLR 2025 PrefDiff]</a>
+                    <a href="https://arxiv.org/abs/2410.13428" target="_blank">[iDreamRec]</a>
+                </li>
+            </ul>
+        </div>
+        <div class="rt-panel">
+            <div class="rt-header">
+                <i class="fa-solid fa-robot"></i>
+                <strong>Agentic LLM</strong>
+            </div>
+            <ul class="rt-list">
+                <li>Tutorials:
+                    <a href="https://llmagenttutorial.github.io/" target="_blank">[WWW 2024 Tutorial]</a>
+                    <a href="https://llmagenttutorial.github.io/sigir2024" target="_blank">[SIGIR 2024 Tutorial]</a>
+                </li>
+                <li>Agentic Systems:
+                    <a href="https://arxiv.org/abs/2505.11277" target="_blank">[NeurIPS 2025 AutoRefine]</a>
+                    <a href="https://openreview.net/forum?id=fm77rDf9JS" target="_blank">[NeurIPS 2025 AgentRecBench]</a>
+                </li>
+                <li>Memory &amp; Long-Context:
+                    <a href="https://alphalab-ustc.github.io/grumem-alphalab/" target="_blank">[GruMem]</a>
+                    <a href="https://github.com/leolee99/LD-Agent" target="_blank">[LD-Agent]</a>
+                    <a href="https://github.com/meituan/MemOCR" target="_blank">[MemOCR]</a>
+                </li>
+                <li>Multimodality: <a href="https://arxiv.org/abs/2410.14148" target="_blank">[ICLR 2025 FiSAO]</a></li>
+            </ul>
+        </div>
+        <div class="rt-panel">
+            <div class="rt-header">
+                <i class="fa-solid fa-lightbulb"></i>
+                <strong>LLM Reasoning</strong>
+            </div>
+            <ul class="rt-list">
+                <li>Reasoning Strength:
+                    <a href="https://arxiv.org/abs/2506.08390" target="_blank">[NeurIPS 2025 AlphaReasoner]</a>
+                    <a href="https://openreview.net/forum?id=H26A7cl91u" target="_blank">[NeurIPS 2025 Reasoning Strength Planning]</a>
+                </li>
+                <li>Self-Verification:
+                    <a href="https://github.com/chenyuxin1999/Learning-to-Self-Verify" target="_blank">[Learning-to-Self-Verify]</a>
+                </li>
+                <li>RAG &amp; Knowledge:
+                    <a href="https://openreview.net/forum?id=rBlWKIUQey" target="_blank">[NeurIPS 2025 Search-and-Refine]</a>
+                </li>
+            </ul>
+        </div>
+        <div class="rt-panel">
+            <div class="rt-header">
+                <i class="fa-solid fa-shield-halved"></i>
+                <strong>Trustworthy LLM</strong>
+            </div>
+            <ul class="rt-list">
+                <li>Safety &amp; Alignment:
+                    <a href="https://arxiv.org/abs/2507.14987" target="_blank">[AlphaAlign]</a>
+                    <a href="https://arxiv.org/abs/2411.11496" target="_blank">[NeurIPS 2025 SSA]</a>
+                    <a href="https://arxiv.org/abs/2506.07736" target="_blank">[NeurIPS 2025 RSafe]</a>
+                    <a href="https://arxiv.org/abs/2506.07022" target="_blank">[AlphaSteer]</a>
+                </li>
+                <li>Agent Safety:
+                    <a href="https://github.com/SophieZheng998/Risky-Bench" target="_blank">[Risky-Bench]</a>
+                    <a href="https://papers.nips.cc/paper_files/paper/2024/file/b35c38f70065ac6c694089ca93a015bb-Paper-Conference.pdf" target="_blank">[NeurIPS 2024 ALI-Agent]</a>
+                </li>
+                <li>LLM Alignment:
+                    <a href="https://arxiv.org/abs/2406.09215" target="_blank">[NeurIPS 2024 S-DPO]</a>
+                    <a href="https://openreview.net/forum?id=jvq8nzOUp8" target="_blank">[NeurIPS 2025 SSafe]</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Research Projects -->
+    <section class="section" id="projects">
+        <h2 class="section-title">Research Projects</h2>
+        <p class="proj-intro">
+            Open-source projects from Alpha Lab &amp; collaborators —
+            <a href="https://alphalab-ustc.github.io/index.html" target="_blank">View Lab Page →</a>
+        </p>
+
+        <!-- ── Agentic LLM & Reasoning ── -->
+        <div class="proj-group">
+            <div class="proj-group-label">
+                <i class="fa-solid fa-robot"></i> Agentic LLM &amp; Reasoning
+            </div>
+            <div class="proj-grid-wrap">
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/memocr.png" alt="MemOCR">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/meituan/MemOCR" target="_blank">MemOCR</a></div>
+                        <span class="proj-cat">Visual Memory Agent</span>
+                        <p class="proj-desc">OCR-driven visual memory agent enabling structured long-term memory retrieval for AI systems.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-memocr">⭐ --</span>
+                            <a href="https://github.com/meituan/MemOCR" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/ldagent.png" alt="LD-Agent">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/leolee99/LD-Agent" target="_blank">LD-Agent</a></div>
+                        <span class="proj-cat">Long-term Dialogue</span>
+                        <p class="proj-desc">Long-term dialogue agent with event-driven memory, persona extraction, and structured response generation.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-ldagent">⭐ --</span>
+                            <a href="https://github.com/leolee99/LD-Agent" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/selfverify.png" alt="Learning-to-Self-Verify" style="object-fit:contain;background:#fff;">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/chenyuxin1999/Learning-to-Self-Verify" target="_blank">Learning-to-Self-Verify</a></div>
+                        <span class="proj-cat">LLM Reasoning</span>
+                        <p class="proj-desc">Teaching LLMs to self-verify their own outputs, improving both generation quality and verification accuracy.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-selfverify">⭐ --</span>
+                            <a href="https://github.com/chenyuxin1999/Learning-to-Self-Verify" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img" style="background:linear-gradient(135deg,#1a1a2e,#4c1d95);">
+                        <div class="proj-img-placeholder">GruMem</div>
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://alphalab-ustc.github.io/grumem-alphalab/" target="_blank">GruMem</a></div>
+                        <span class="proj-cat">Long-Context Memory</span>
+                        <p class="proj-desc">Gated recurrent memory for LLMs — up to 400% inference speedup on long-context reasoning tasks.</p>
+                        <div class="proj-meta">
+                            <a href="https://alphalab-ustc.github.io/grumem-alphalab/" target="_blank" class="proj-link"><i class="fa-solid fa-globe"></i> Project Page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Personalization ── -->
+        <div class="proj-group">
+            <div class="proj-group-label">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Personalization
+            </div>
+            <div class="proj-grid-wrap">
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/alpharec.png" alt="AlphaRec">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/LehengTHU/AlphaRec" target="_blank">AlphaRec</a></div>
+                        <span class="proj-cat">Language-based Rec</span>
+                        <p class="proj-desc">Language representations as the foundation for collaborative filtering — lightweight, fast convergence, superior zero-shot abilities. ICLR 2025 Oral.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-alpharec">⭐ --</span>
+                            <a href="https://github.com/LehengTHU/AlphaRec" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/minionecrec.png" alt="MiniOneRec" style="object-fit:contain;background:#fff;">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/AkaliKong/MiniOneRec" target="_blank">MiniOneRec</a></div>
+                        <span class="proj-cat">Generative Recommendation</span>
+                        <p class="proj-desc">A minimalist one-stage generative recommendation framework powered by LLMs.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-minionecrec">⭐ --</span>
+                            <a href="https://github.com/AkaliKong/MiniOneRec" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/agent4rec.png" alt="Agent4Rec">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/LehengTHU/Agent4Rec" target="_blank">Agent4Rec</a></div>
+                        <span class="proj-cat">Recommendation Agent</span>
+                        <p class="proj-desc">LLM-powered agents for simulating user behavior and evaluating recommender systems. SIGIR 2024.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-agent4rec">⭐ --</span>
+                            <a href="https://github.com/LehengTHU/Agent4Rec" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/sdpo.png" alt="S-DPO">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/chenyuxin1999/S-DPO" target="_blank">S-DPO</a></div>
+                        <span class="proj-cat">LLM Alignment</span>
+                        <p class="proj-desc">Softmax Direct Preference Optimization for aligning LLMs as recommenders. NeurIPS 2024.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-sdpo">⭐ --</span>
+                            <a href="https://github.com/chenyuxin1999/S-DPO" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Trustworthy AI ── -->
+        <div class="proj-group">
+            <div class="proj-group-label">
+                <i class="fa-solid fa-shield-halved"></i> Trustworthy AI
+            </div>
+            <div class="proj-grid-wrap">
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/alphasteer.jpg" alt="AlphaSteer">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/AlphaLab-USTC/AlphaSteer" target="_blank">AlphaSteer</a></div>
+                        <span class="proj-cat">LLM Safety</span>
+                        <p class="proj-desc">Learning refusal steering with principled null-space constraints — enhances safety without compromising utility. ICLR 2026.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-alphasteer">⭐ --</span>
+                            <a href="https://github.com/AlphaLab-USTC/AlphaSteer" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img" style="background:linear-gradient(135deg,#1a1a2e,#7f1d1d,#991b1b);align-items:flex-start;padding:0.7rem;">
+                        <img src="image/projects/alphaalign.png" alt="AlphaAlign"
+                             onerror="this.style.display='none';this.parentNode.style.alignItems='center';this.parentNode.querySelector('.proj-img-placeholder').style.display='flex'">
+                        <div class="proj-img-placeholder" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.4rem;">
+                            <i class="fa-solid fa-shield-halved" style="font-size:2.2rem;color:rgba(255,255,255,0.85);"></i>
+                            <span style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.03em;">AlphaAlign</span>
+                        </div>
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/zy20031230/AlphaAlign" target="_blank">AlphaAlign</a></div>
+                        <span class="proj-cat">LLM Alignment</span>
+                        <p class="proj-desc">Incentivizing safety alignment through extremely simplified reinforcement learning with dual-component reward. ICLR 2026.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-alphaalign">⭐ --</span>
+                            <a href="https://github.com/zy20031230/AlphaAlign" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-img">
+                        <img src="image/projects/riskybench.png" alt="Risky-Bench">
+                    </div>
+                    <div class="proj-body">
+                        <div class="proj-name"><a href="https://github.com/SophieZheng998/Risky-Bench" target="_blank">Risky-Bench</a></div>
+                        <span class="proj-cat">Agent Safety</span>
+                        <p class="proj-desc">Benchmark for evaluating safety and risk-awareness of LLM-powered agents in real-world scenarios.</p>
+                        <div class="proj-meta">
+                            <span class="proj-stars" id="stars-riskybench">⭐ --</span>
+                            <a href="https://github.com/SophieZheng998/Risky-Bench" target="_blank" class="proj-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News -->
+    <section class="section" id="news">
+        <h2 class="section-title">News &amp; Highlights</h2>
+        <ul class="news-list">
+
+            <li class="news-item">
+                <span class="news-date">2026 / 01</span>
+                <div class="news-body">
+                    <strong>🎉 Five papers accepted at ICLR 2026!</strong>
+                    <p class="note">Big congrats to Wenyu Mao, Junkang Wu, Yaorui Shi, Yi Zhang, Leheng Sheng and all collaborators!</p>
+                    <div class="news-papers">
+                        <a href="https://arxiv.org/abs/2506.07022" target="_blank">AlphaSteer: Learning Refusal Steering with Principled Null-Space Constraint</a>
+                        <a href="https://arxiv.org/abs/2507.14987" target="_blank">AlphaAlign: Incentivizing Safety Alignment with Extremely Simplified Reinforcement Learning</a>
+                        <a href="https://arxiv.org/abs/2506.08390" target="_blank">Quantile Advantage Estimation: Stabilizing RLVR for LLM Reasoning</a>
+                        <a href="#" target="_blank">Look Back to Reason Forward: Revisitable Memory for Long-Context LLM Agents</a>
+                        <a href="#" target="_blank">Denoising Neural Reranker for Recommender Systems</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="news-item">
+                <span class="news-date">2025 / 09</span>
+                <div class="news-body">
+                    <strong>🎉 Seven papers accepted at NeurIPS 2025!</strong>
+                    <p class="note">Big congrats to Guoqing Hu, Yaorui Shi, Leheng Sheng, Chenhang Cui, Jingnan Zheng, Yuxin Chen, Yu Shang and all collaborators!</p>
+                    <div class="news-papers">
+                        <a href="https://openreview.net/forum?id=dqBkZ9rmSF" target="_blank">Fading to Grow: Growing Preference Ratios via Preference Fading Discrete Diffusion for Recommendation</a>
+                        <a href="https://openreview.net/forum?id=rBlWKIUQey" target="_blank">Search and Refine During Think: Facilitating Knowledge Refinement for Improved Retrieval-Augmented Reasoning</a>
+                        <a href="https://openreview.net/forum?id=H26A7cl91u" target="_blank">On Reasoning Strength Planning in Large Reasoning Models</a>
+                        <a href="https://openreview.net/forum?id=jvq8nzOUp8" target="_blank">Safe + Safe = Unsafe? Exploring How Safe Images Can Be Exploited to Jailbreak Large Vision-Language Models</a>
+                        <a href="https://openreview.net/forum?id=heJ7NRInjs" target="_blank">RSafe: Incentivizing Proactive Reasoning to Build Robust and Adaptive LLM Safeguards</a>
+                        <a href="https://openreview.net/forum?id=ZE9cxnEBpy" target="_blank">The Emergence of Abstract Thought in Large Language Models Beyond Any Language</a>
+                        <a href="https://openreview.net/forum?id=fm77rDf9JS" target="_blank">AgentRecBench: Benchmarking LLM Agent-based Personalized Recommender Systems</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="news-item">
+                <span class="news-date">2025 / 06</span>
+                <div class="news-body">
+                    <strong>One paper accepted at KDD 2025!</strong>
+                    <p class="note">Big congrats to Yingzhi He and Xiaohao Liu!</p>
+                    <div class="news-papers">
+                        <a href="https://arxiv.org/abs/2506.21579" target="_blank">LLM2Rec: Large Language Models Are Powerful Embedding Models for Sequential Recommendation</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="news-item">
+                <span class="news-date">2025 / 04</span>
+                <div class="news-body">
+                    <strong>One paper accepted at SIGIR 2025!</strong>
+                    <p class="note">Big congrats to Guoqing Hu!</p>
+                    <div class="news-papers">
+                        <a href="https://arxiv.org/abs/2504.19218" target="_blank">AlphaFuse: Learn ID Embeddings for Sequential Recommendation in Null Space of Language Embeddings</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="news-item">
+                <span class="news-date">2025 / 01</span>
+                <div class="news-body">
+                    <strong>Three papers accepted at ICLR 2025!</strong>
+                    <p class="note">Congratulations to Leheng Sheng, Chenhang Cui, Shuo Liu and all collaborators!</p>
+                    <div class="news-papers">
+                        <a href="https://openreview.net/forum?id=eIJfOIMN9z" target="_blank">Language Representations Can be What Recommenders Need: Findings and Potentials (⭐ Oral)</a>
+                        <a href="https://openreview.net/forum?id=cJQ1K2fjpD" target="_blank">Fine-Grained Verifiers: Preference Modeling as Next-token Prediction in Vision-Language Alignment</a>
+                        <a href="https://openreview.net/forum?id=6GATHdOi1x" target="_blank">Preference Diffusion for Recommendation</a>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </section>
+
+    <!-- Join Alpha Lab -->
+    <section class="section" id="join">
+        <h2 class="section-title">Join Alpha Lab</h2>
+        <div class="recruit-box">
+            🎓 I am actively looking for highly motivated <strong>PhD students, master students, and interns</strong>
+            to work together on LLM-powered agents, personalization, trustworthy AI, and their real-world applications.
+            Please feel free to send me your CV and transcripts if you are interested.
+            We are also seeking opportunities in <strong>research, partnership, and commercialization</strong> in exciting AI projects.<br><br>
+            📧 Contact: <strong><a href="mailto:An_Zhang@ustc.edu.cn" style="color:#6d28d9;">An_Zhang@ustc.edu.cn</a></strong>
+        </div>
+    </section>
+
+    <!-- Professional Services -->
+    <section class="section" id="services">
+        <h2 class="section-title">Professional Services</h2>
+        <div class="services-box">
+            <i class="fa-solid fa-users" style="color:#7c3aed;margin-right:0.5rem;"></i>
+            Program Committee member for <strong>NeurIPS</strong> and <strong>ACL</strong>;
+            reviewer / PC for other major AI, ML, NLP and Data Mining venues including
+            <strong>ICML, ICLR, KDD, WWW/TheWebConf, SIGIR, EMNLP, AAAI, WSDM, CVPR, ICCV, ECCV, ACM&nbsp;MM</strong>,
+            as well as related workshops and journal tracks.
+        </div>
+    </section>
+
+    <!-- Honors & Awards -->
+    <section class="section" id="awards">
+        <h2 class="section-title">Honors &amp; Awards</h2>
+        <ul class="award-list">
+            <li class="award-item"><i class="fa-solid fa-trophy"></i> Rising Stars of Women In the Web Award, 2025</li>
+            <li class="award-item"><i class="fa-solid fa-trophy"></i> SIGIR Best PC Member Award, 2025</li>
+        </ul>
+    </section>
+
+
+</div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+    <p>© 2025 An Zhang &nbsp;·&nbsp; University of Science and Technology of China</p>
+    <p style="margin-top:0.3rem;">Design inspired by <a href="https://xiangwang1223.github.io/" target="_blank">Xiang Wang</a> &amp; <a href="https://sites.google.com/view/chaoh" target="_blank">Chao Huang</a></p>
+</footer>
+
+<!-- ── Live GitHub Stars + Sort by Stars ── -->
+<script>
+(function () {
+    var repos = [
+        { id: 'stars-alphasteer',  repo: 'AlphaLab-USTC/AlphaSteer' },
+        { id: 'stars-alphaalign',  repo: 'zy20031230/AlphaAlign' },
+        { id: 'stars-alpharec',    repo: 'LehengTHU/AlphaRec' },
+        { id: 'stars-minionecrec', repo: 'AkaliKong/MiniOneRec' },
+        { id: 'stars-agent4rec',   repo: 'LehengTHU/Agent4Rec' },
+        { id: 'stars-memocr',      repo: 'meituan/MemOCR' },
+        { id: 'stars-riskybench',  repo: 'SophieZheng998/Risky-Bench' },
+        { id: 'stars-sdpo',        repo: 'chenyuxin1999/S-DPO' },
+        { id: 'stars-ldagent',     repo: 'leolee99/LD-Agent' },
+        { id: 'stars-selfverify',  repo: 'chenyuxin1999/Learning-to-Self-Verify' },
+    ];
+
+    function fmt(n) {
+        return (n >= 1000 ? '~' + (n / 1000).toFixed(1) + 'k' : n) + ' ⭐';
+    }
+
+    function sortGrid(grid) {
+        var cards = Array.from(grid.querySelectorAll(':scope > .proj-card'));
+        if (cards.length < 2) return;
+        cards.sort(function (a, b) {
+            return (parseInt(b.dataset.stars) || 0) - (parseInt(a.dataset.stars) || 0);
+        });
+        var anchor = grid.querySelector('.proj-row-center');
+        cards.forEach(function (c) {
+            if (anchor) grid.insertBefore(c, anchor);
+            else grid.appendChild(c);
+        });
+    }
+
+    var promises = repos.map(function (item) {
+        return fetch('https://api.github.com/repos/' + item.repo)
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                var el = document.getElementById(item.id);
+                if (el && data.stargazers_count != null) {
+                    var n = data.stargazers_count;
+                    el.textContent = fmt(n);
+                    var card = el.closest ? el.closest('.proj-card') : null;
+                    if (card) card.dataset.stars = n;
+                }
+            })
+            .catch(function () {});
+    });
+
+    Promise.all(promises).then(function () {
+        document.querySelectorAll('.proj-grid-wrap').forEach(sortGrid);
+    });
+})();
+</script>
+
+</body>
+</html>

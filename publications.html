@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications | An Zhang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1e293b;
+            line-height: 1.7;
+            background: #fafafa;
+        }
+        a { color: #7c3aed; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.5rem;
+            height: 54px;
+            background: rgba(13, 8, 32, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+        .nav-name { font-size: 1.05rem; font-weight: 600; color: #fff; letter-spacing: 0.02em; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.65); font-size: 0.875rem; font-weight: 500; transition: color 0.18s; }
+        .nav-links a:hover { color: #fff; text-decoration: none; }
+        .nav-links a.active { color: #c4b5fd; text-decoration: none; }
+
+        /* ── PAGE HERO ── */
+        .pubs-hero {
+            background: linear-gradient(140deg, #0d0820 0%, #2e1065 45%, #5b21b6 100%);
+            padding: 100px 0 44px;
+            text-align: center;
+            position: relative;
+        }
+        .pubs-hero h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.7rem;
+        }
+        .pubs-hero-sub {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.4rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.65);
+        }
+        .pubs-hero-sub a { color: rgba(255,255,255,0.82); display: inline-flex; align-items: center; gap: 0.35rem; }
+        .pubs-hero-sub a:hover { color: #fff; text-decoration: none; }
+        .pubs-hero-sep { color: rgba(255,255,255,0.3); }
+        .wave-wrap {
+            background: linear-gradient(140deg, #0d0820 0%, #2e1065 45%, #5b21b6 100%);
+            line-height: 0;
+        }
+        .wave-wrap svg { display: block; }
+
+        /* ── BODY ── */
+        .pubs-body { background: #fafafa; padding: 2.5rem 0 5rem; }
+        .container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+        /* ── FILTER ── */
+        .pub-filter-wrap {
+            background: #fff;
+            border: 1px solid #e9e3f8;
+            border-radius: 12px;
+            padding: 1rem 1.4rem;
+            margin-bottom: 2.2rem;
+        }
+        .filter-header {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+        .filter-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+        .filter-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #7c3aed;
+            width: 56px;
+            flex-shrink: 0;
+        }
+        .fchip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: #475569;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+        .fchip:hover { background: #f1f5f9; border-color: #c4b5fd; }
+        .fchip.active { background: #f5f3ff; color: #6d28d9; border-color: #c4b5fd; }
+        .fchip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+        /* ── YEAR BLOCK ── */
+        .pub-year-block { margin-bottom: 2.5rem; }
+        .year-heading {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .year-label {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2e1065;
+            flex-shrink: 0;
+        }
+        .year-line { flex: 1; height: 2px; background: #ede9fe; border-radius: 1px; }
+
+        /* ── PUB ENTRY ── */
+        .pub-entry {
+            display: flex;
+            gap: 1rem;
+            background: #fff;
+            border: 1px solid #e9e3f8;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            transition: box-shadow 0.18s;
+            align-items: flex-start;
+        }
+        .pub-entry:hover { box-shadow: 0 4px 18px rgba(109,40,217,0.08); }
+        .pub-entry.hidden { display: none; }
+
+        /* venue badge */
+        .venue {
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.22rem 0.6rem;
+            border-radius: 6px;
+            text-align: center;
+            min-width: 66px;
+            margin-top: 0.1rem;
+            letter-spacing: 0.01em;
+        }
+        .v-ml  { color: #7c3aed; background: #faf5ff; border: 1px solid #ddd6fe; }
+        .v-ir  { color: #1d4ed8; background: #eff6ff; border: 1px solid #bfdbfe; }
+        .v-dm  { color: #15803d; background: #f0fdf4; border: 1px solid #bbf7d0; }
+        .v-nlp { color: #c2410c; background: #fff7ed; border: 1px solid #fed7aa; }
+        .v-jnl { color: #475569; background: #f8fafc; border: 1px solid #cbd5e1; }
+
+        .pe-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #1e293b;
+            line-height: 1.45;
+            margin-bottom: 0.28rem;
+        }
+        .pe-title a { color: #1e293b; }
+        .pe-title a:hover { color: #7c3aed; text-decoration: none; }
+        .pe-authors {
+            font-size: 0.82rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 0.38rem;
+        }
+        .pe-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+        .pe-link {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.1rem 0.55rem;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            border: 1px solid #ddd6fe;
+            color: #6d28d9;
+            background: #f5f3ff;
+            transition: all 0.15s;
+        }
+        .pe-link:hover { background: #ede9fe; text-decoration: none; }
+        .pe-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+        .pet {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #64748b;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 0.1rem 0.45rem;
+            border-radius: 4px;
+        }
+        /* special badges */
+        .pub-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.12rem 0.5rem;
+            border-radius: 5px;
+            margin-left: 0.2rem;
+        }
+        .tag-oral  { color: #166534; background: #f0fdf4; border: 1px solid #86efac; }
+        .tag-award { color: #9a3412; background: #fff7ed; border: 1px solid #fdba74; }
+        .tag-star  { color: #92400e; background: #fffbeb; border: 1px solid #fcd34d; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            border-top: 1px solid #ede9fe;
+            background: #fafafa;
+        }
+        footer a { color: #94a3b8; }
+        footer a:hover { color: #7c3aed; }
+
+        @media (max-width: 600px) {
+            .pub-entry { flex-direction: column; gap: 0.5rem; }
+            .venue { min-width: auto; }
+            nav { padding: 0 1rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.78rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html" class="nav-name" style="text-decoration:none;">An Zhang</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#research">Research</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#news">News</a></li>
+        <li><a href="publications.html" class="active">Publications</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="pubs-hero">
+    <h1>Publications</h1>
+    <div class="pubs-hero-sub">
+        <a href="https://scholar.google.com.sg/citations?user=BcX7GJcAAAAJ&hl=en" target="_blank">
+            <i class="ai ai-google-scholar"></i> Google Scholar
+        </a>
+        <span class="pubs-hero-sep">·</span>
+        <a href="https://openreview.net/profile?id=~An_Zhang2" target="_blank">
+            <i class="fa-solid fa-file-lines"></i> OpenReview
+        </a>
+        <span class="pubs-hero-sep">·</span>
+        <span>30+ top-tier papers &nbsp;·&nbsp; 3,200+ citations &nbsp;·&nbsp; h-index = 27</span>
+    </div>
+</div>
+<div class="wave-wrap">
+    <svg viewBox="0 0 1440 52" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:52px;">
+        <path d="M0,26 C240,52 480,0 720,22 C960,44 1200,6 1440,26 L1440,52 L0,52 Z" fill="#fafafa"/>
+    </svg>
+</div>
+
+<!-- BODY -->
+<div class="pubs-body">
+<div class="container">
+
+    <!-- Filter -->
+    <div class="pub-filter-wrap">
+        <div class="filter-header"><i class="fa-solid fa-filter"></i> Filter by Topic</div>
+        <div class="filter-rows">
+            <div class="filter-row">
+                <span class="filter-label">LLM</span>
+                <span class="fchip" data-tag="llm-reasoning"><span class="fchip-dot" style="background:#7c3aed"></span>LLM Reasoning</span>
+                <span class="fchip" data-tag="llm-alignment"><span class="fchip-dot" style="background:#dc2626"></span>LLM Alignment</span>
+                <span class="fchip" data-tag="llm-safety"><span class="fchip-dot" style="background:#ea580c"></span>LLM Safety</span>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">Agent</span>
+                <span class="fchip" data-tag="agentic"><span class="fchip-dot" style="background:#0891b2"></span>Agentic Systems</span>
+                <span class="fchip" data-tag="long-context"><span class="fchip-dot" style="background:#0369a1"></span>Long-context</span>
+                <span class="fchip" data-tag="memory"><span class="fchip-dot" style="background:#7c3aed"></span>Memory</span>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">RecSys</span>
+                <span class="fchip" data-tag="llm-recsys"><span class="fchip-dot" style="background:#16a34a"></span>LLM for RecSys</span>
+                <span class="fchip" data-tag="generative-rec"><span class="fchip-dot" style="background:#15803d"></span>Generative Rec</span>
+                <span class="fchip" data-tag="graph-recsys"><span class="fchip-dot" style="background:#166534"></span>Graph RecSys</span>
+            </div>
+            <div class="filter-row">
+                <span class="filter-label">Other</span>
+                <span class="fchip" data-tag="multimodal"><span class="fchip-dot" style="background:#c2410c"></span>Multimodal</span>
+                <span class="fchip" data-tag="graph-ml"><span class="fchip-dot" style="background:#92400e"></span>Graph ML</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2026 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2026</span>
+            <div class="year-line"></div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-alignment">
+            <span class="venue v-ml">ICLR '26</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2507.14987" target="_blank">AlphaAlign: Incentivizing Safety Alignment with Extremely Simplified Reinforcement Learning</a>
+                </div>
+                <div class="pe-authors">Yi Zhang, <strong>An Zhang*</strong>, XiuYu Zhang, Leheng Sheng, Yuxin Chen, Zhenkai Liang, Xiang Wang</div>
+                <div class="pe-links">
+                    <a href="https://arxiv.org/abs/2507.14987" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/zy20031230/AlphaAlign" target="_blank" class="pe-link"><i class="fa-brands fa-github"></i> Code</a>
+                </div>
+                <div class="pe-tags"><span class="pet">LLM Alignment</span><span class="pet">LLM Safety</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-safety">
+            <span class="venue v-ml">ICLR '26</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2506.07022" target="_blank">AlphaSteer: Learning Refusal Steering with Principled Null-Space Constraint</a>
+                </div>
+                <div class="pe-authors">Leheng Sheng, Changshuo Shen, Weixiang Zhao, Junfeng Fang, Xiaohao Liu, Zhenkai Liang, Xiang Wang, <strong>An Zhang*</strong>, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://arxiv.org/abs/2506.07022" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/AlphaLab-USTC/AlphaSteer" target="_blank" class="pe-link"><i class="fa-brands fa-github"></i> Code</a>
+                </div>
+                <div class="pe-tags"><span class="pet">LLM Safety</span><span class="pet">LLM Alignment</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-reasoning">
+            <span class="venue v-ml">ICLR '26</span>
+            <div>
+                <div class="pe-title">Quantile Advantage Estimation: Stabilizing RLVR for LLM Reasoning</div>
+                <div class="pe-authors">Junkang Wu, Kexin Huang, Jiancan Wu, <strong>An Zhang</strong>, Xiang Wang, Xiangnan He</div>
+                <div class="pe-tags"><span class="pet">LLM Reasoning</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="long-context agentic memory">
+            <span class="venue v-ml">ICLR '26</span>
+            <div>
+                <div class="pe-title">Look Back to Reason Forward: Revisitable Memory for Long-Context LLM Agents</div>
+                <div class="pe-authors">Yaorui Shi, Yuxin Chen, Siyuan Wang, Sihang Li, Hengxing Cai, Qi Gu, Xiang Wang, <strong>An Zhang*</strong></div>
+                <div class="pe-tags"><span class="pet">Long-context</span><span class="pet">Agentic Systems</span><span class="pet">Memory</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys generative-rec">
+            <span class="venue v-ml">ICLR '26</span>
+            <div>
+                <div class="pe-title">Denoising Neural Reranker for Recommender Systems</div>
+                <div class="pe-authors">Wenyu Mao, Shuchang Liu, HailanYang, Xiaobei Wang, Xiaoyu Yang, Xu Gao, Xiang Li, Lantao Hu, Han Li, Kun Gai, <strong>An Zhang</strong>, Xiang Wang</div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span><span class="pet">Generative Rec</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2025 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2025</span>
+            <div class="year-line"></div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal llm-safety">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=ZE9cxnEBpy" target="_blank">The Emergence of Abstract Thought in Large Language Models Beyond Any Language</a>
+                </div>
+                <div class="pe-authors">Yuxin Chen, Yiran Zhao, Yang Zhang, <strong>An Zhang*</strong>, Kenji Kawaguchi, Shafiq Joty, Junnan Li, Tat-Seng Chua, Michael Qizhe Shieh, Wenxuan Zhang</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=ZE9cxnEBpy" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="generative-rec llm-recsys">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=dqBkZ9rmSF" target="_blank">Fading to Grow: Growing Preference Ratios via Preference Fading Discrete Diffusion for Recommendation</a>
+                </div>
+                <div class="pe-authors">Guoqing Hu, <strong>An Zhang*</strong>, Shuchang Liu, Wenyu Mao, Jiancan Wu, Xun Yang, Xiang Li, Lantao Hu, Han Li, Kun Gai, Xiang Wang</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=dqBkZ9rmSF" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Generative Rec</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-safety multimodal">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=jvq8nzOUp8" target="_blank">Safe + Safe = Unsafe? Exploring How Safe Images Can Be Exploited to Jailbreak Large Vision-Language Models</a>
+                </div>
+                <div class="pe-authors">Chenhang Cui, Gelei Deng, <strong>An Zhang*</strong>, Jingnan Zheng, Yicong Li, Lianli Gao, Tianwei Zhang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=jvq8nzOUp8" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">LLM Safety</span><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-reasoning">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=H26A7cl91u" target="_blank">On Reasoning Strength Planning in Large Reasoning Models</a>
+                </div>
+                <div class="pe-authors">Leheng Sheng, <strong>An Zhang*</strong>, Zijian Wu, Weixiang Zhao, Changshuo Shen, Yi Zhang, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=H26A7cl91u" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">LLM Reasoning</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-safety llm-alignment">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=heJ7NRInjs" target="_blank">RSafe: Incentivizing Proactive Reasoning to Build Robust and Adaptive LLM Safeguards</a>
+                </div>
+                <div class="pe-authors">Jingnan Zheng, Xiangtian Ji, Yijun Lu, Chenhang Cui, Weixiang Zhao, Gelei Deng, Zhenkai Liang, <strong>An Zhang*</strong>, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://openreview.net/forum?id=heJ7NRInjs" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a>
+                    <a href="https://arxiv.org/abs/2506.07736" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                </div>
+                <div class="pe-tags"><span class="pet">LLM Safety</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-reasoning long-context">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=rBlWKIUQey" target="_blank">Search and Refine During Think: Facilitating Knowledge Refinement for Improved Retrieval-Augmented Reasoning</a>
+                </div>
+                <div class="pe-authors">Yaorui Shi, Sihang Li, Chang Wu, Zhiyuan Liu, Junfeng Fang, Hengxing Cai, <strong>An Zhang</strong>, Xiang Wang</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=rBlWKIUQey" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">LLM Reasoning</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="agentic llm-recsys">
+            <span class="venue v-ml">NeurIPS '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=fm77rDf9JS" target="_blank">AgentRecBench: Benchmarking LLM Agent-based Personalized Recommender Systems</a>
+                </div>
+                <div class="pe-authors">Yu Shang, Peijie Liu, Yuwei Yan, Zijing Wu, Leheng Sheng, Yuanqing Yu, Chumeng Jiang, <strong>An Zhang</strong>, Fengli Xu, Yu Wang, Min Zhang, Yong Li</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=fm77rDf9JS" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Agentic Systems</span><span class="pet">LLM for RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys">
+            <span class="venue v-dm">KDD '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2506.21579" target="_blank">LLM2Rec: Large Language Models Are Powerful Embedding Models for Sequential Recommendation</a>
+                </div>
+                <div class="pe-authors">Yingzhi He, Xiaohao Liu, <strong>An Zhang*</strong>, Yunshan Ma, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2506.21579" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys">
+            <span class="venue v-ir">SIGIR '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2504.19218" target="_blank">AlphaFuse: Learn ID Embeddings for Sequential Recommendation in Null Space of Language Embeddings</a>
+                </div>
+                <div class="pe-authors">Guoqing Hu, <strong>An Zhang*</strong>, Shuo Liu, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2504.19218" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys">
+            <span class="venue v-ml">ICLR '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=eIJfOIMN9z" target="_blank">Language Representations Can be What Recommenders Need: Findings and Potentials</a>
+                    <span class="pub-tag tag-oral"><i class="fa-solid fa-microphone"></i> Oral</span>
+                </div>
+                <div class="pe-authors">Leheng Sheng, <strong>An Zhang*</strong>, Yi Zhang, Yuxin Chen, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://openreview.net/forum?id=eIJfOIMN9z" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a>
+                    <a href="https://arxiv.org/abs/2407.05441" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/LehengTHU/AlphaRec" target="_blank" class="pe-link"><i class="fa-brands fa-github"></i> Code</a>
+                </div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span><span class="pet">Generative Rec</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="generative-rec">
+            <span class="venue v-ml">ICLR '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=6GATHdOi1x" target="_blank">Preference Diffusion for Recommendation</a>
+                </div>
+                <div class="pe-authors">Shuo Liu, <strong>An Zhang*</strong>, Guoqing Hu, Hong Qian, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://openreview.net/forum?id=6GATHdOi1x" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a>
+                    <a href="https://arxiv.org/abs/2410.13117" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                </div>
+                <div class="pe-tags"><span class="pet">Generative Rec</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal llm-alignment">
+            <span class="venue v-ml">ICLR '25</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=cJQ1K2fjpD" target="_blank">Fine-Grained Verifiers: Preference Modeling as Next-token Prediction in Vision-Language Alignment</a>
+                </div>
+                <div class="pe-authors">Chenhang Cui, <strong>An Zhang*</strong>, Yiyang Zhou, Zhaorun Chen, Gelei Deng, Huaxiu Yao, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://openreview.net/forum?id=cJQ1K2fjpD" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a>
+                    <a href="https://arxiv.org/abs/2410.14148" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                </div>
+                <div class="pe-tags"><span class="pet">Multimodal</span><span class="pet">LLM Alignment</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2024 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2024</span>
+            <div class="year-line"></div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys llm-alignment">
+            <span class="venue v-ml">NeurIPS '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2406.09215" target="_blank">On Softmax Direct Preference Optimization for Recommendation</a>
+                </div>
+                <div class="pe-authors">Yuxin Chen, Junfei Tan, <strong>An Zhang*</strong>, Zhengyi Yang, Leheng Sheng, Enzhi Zhang, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://arxiv.org/abs/2406.09215" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/chenyuxin1999/S-DPO" target="_blank" class="pe-link"><i class="fa-brands fa-github"></i> Code</a>
+                </div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span><span class="pet">LLM Alignment</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys">
+            <span class="venue v-ml">NeurIPS '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2408.10159" target="_blank">Customizing Language Models with Instance-wise LoRA for Sequential Recommendation</a>
+                </div>
+                <div class="pe-authors">Xiaoyu Kong, Jiancan Wu, <strong>An Zhang</strong>, Leheng Sheng, Hui Lin, Xiang Wang, Xiangnan He</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2408.10159" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal">
+            <span class="venue v-ml">NeurIPS '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=jMJVFP4BH6" target="_blank">Towards Neuron Attributions in Multi-Modal Large Language Models</a>
+                </div>
+                <div class="pe-authors">Junfeng Fang, Zac Bi, Ruipeng Wang, Houcheng Jiang, Yuan Gao, Kun Wang, <strong>An Zhang</strong>, Jie Shi, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=jMJVFP4BH6" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="agentic llm-safety">
+            <span class="venue v-ml">NeurIPS '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://papers.nips.cc/paper_files/paper/2024/file/b35c38f70065ac6c694089ca93a015bb-Paper-Conference.pdf" target="_blank">ALI-Agent: Assessing LLMs' Alignment with Human Values via Agent-based Evaluation</a>
+                </div>
+                <div class="pe-authors">Jingnan Zheng, Han Wang, <strong>An Zhang*</strong>, Tai D. Nguyen, Jun Sun, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://papers.nips.cc/paper_files/paper/2024/file/b35c38f70065ac6c694089ca93a015bb-Paper-Conference.pdf" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> PDF</a></div>
+                <div class="pe-tags"><span class="pet">Agentic Systems</span><span class="pet">LLM Safety</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal">
+            <span class="venue v-nlp">ACL '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=oyI16Ayw26" target="_blank">ProtT3: Protein-to-Text Generation for Text-based Protein Understanding</a>
+                </div>
+                <div class="pe-authors">Zhiyuan Liu, <strong>An Zhang</strong>, Hao Fei, Enzhi Zhang, Xiang Wang, Kenji Kawaguchi, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=oyI16Ayw26" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-ir">WWW '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=4ROnSgDqsq" target="_blank">General Debiasing for Graph-based Collaborative Filtering via Adversarial Graph Dropout</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Wenchang Ma, Pengbo Wei, Leheng Sheng, Xiang Wang</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=4ROnSgDqsq" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="agentic llm-recsys">
+            <span class="venue v-ir">SIGIR '24</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2310.10108" target="_blank">On Generative Agents in Recommendation</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Yuxin Chen, Leheng Sheng, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links">
+                    <a href="https://arxiv.org/abs/2310.10108" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a>
+                    <a href="https://github.com/LehengTHU/Agent4Rec" target="_blank" class="pe-link"><i class="fa-brands fa-github"></i> Code</a>
+                </div>
+                <div class="pe-tags"><span class="pet">Agentic Systems</span><span class="pet">LLM for RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="agentic">
+            <span class="venue v-ir">SIGIR '24</span>
+            <div>
+                <div class="pe-title">Large Language Model Powered Agents for Information Retrieval (Tutorial)</div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Yang Deng, Yankai Lin, Xu Chen, Ji-Rong Wen, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://llmagenttutorial.github.io/sigir2024" target="_blank" class="pe-link"><i class="fa-solid fa-globe"></i> Website</a></div>
+                <div class="pe-tags"><span class="pet">Agentic Systems</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="agentic">
+            <span class="venue v-ir">WWW '24</span>
+            <div>
+                <div class="pe-title">Large Language Model Powered Agents in the Web (Tutorial)</div>
+                <div class="pe-authors">Yang Deng, <strong>An Zhang</strong>, Yankai Lin, Xu Chen, Ji-Rong Wen, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://llmagenttutorial.github.io/" target="_blank" class="pe-link"><i class="fa-solid fa-globe"></i> Website</a></div>
+                <div class="pe-tags"><span class="pet">Agentic Systems</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2023 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2023</span>
+            <div class="year-line"></div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-jnl">TOIS '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=3y3VHocbKw" target="_blank">Robust Collaborative Filtering to Popularity Distribution Shift</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Wenchang Ma, Jingnan Zheng, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=3y3VHocbKw" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal">
+            <span class="venue v-nlp">EMNLP '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/pdf?id=gJZqSRfV21" target="_blank">ReLM: Leveraging Language Models for Enhanced Chemical Reaction Prediction</a>
+                </div>
+                <div class="pe-authors">Yaorui Shi, <strong>An Zhang*</strong>, Enzhi Zhang, Zhiyuan Liu, Xiang Wang</div>
+                <div class="pe-links"><a href="https://openreview.net/pdf?id=gJZqSRfV21" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-ml">NeurIPS '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/pdf?id=bNNIf8F9OU" target="_blank">Empowering Collaborative Filtering with Principled Adversarial Contrastive Loss</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Leheng Sheng, Zhibo Cai, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/pdf?id=bNNIf8F9OU" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-ml">NeurIPS '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://nips.cc/virtual/2023/oral/73839" target="_blank">Evaluating Post-hoc Explanations for Graph Neural Networks via Robustness Analysis</a>
+                    <span class="pub-tag tag-oral"><i class="fa-solid fa-microphone"></i> Oral</span>
+                </div>
+                <div class="pe-authors">Junfeng Fang, Wei Liu, Yuan Gao, Zemin Liu, <strong>An Zhang</strong>, Xiang Wang, Xiangnan He</div>
+                <div class="pe-links"><a href="https://nips.cc/virtual/2023/oral/73839" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> NeurIPS</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal">
+            <span class="venue v-ml">NeurIPS '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/pdf?id=fWLf8DV0fI" target="_blank">Rethinking Tokenizer and Decoder in Masked Graph Modeling for Molecules</a>
+                </div>
+                <div class="pe-authors">Zhiyuan Liu, Yaorui Shi, <strong>An Zhang</strong>, Enzhi Zhang, Kenji Kawaguchi, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/pdf?id=fWLf8DV0fI" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="llm-recsys">
+            <span class="venue v-nlp">ACM MM '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/pdf/2308.04067.pdf" target="_blank">Online Distillation-enhanced Multi-modal Transformer for Sequential Recommendation</a>
+                </div>
+                <div class="pe-authors">Wei Ji, Xiangyan Liu, <strong>An Zhang*</strong>, Yinwei Wei, Yongxin Ni, Xiang Wang</div>
+                <div class="pe-links"><a href="https://arxiv.org/pdf/2308.04067.pdf" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">LLM for RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="multimodal">
+            <span class="venue v-nlp">ACM MM '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/pdf/2308.03267.pdf" target="_blank">Redundancy-aware Transformer for Video Question Answering</a>
+                </div>
+                <div class="pe-authors">Yicong Li, Xun Yang, <strong>An Zhang</strong>, Chun Feng, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/pdf/2308.03267.pdf" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Multimodal</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-dm">KDD '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=WUx80FnfGKy" target="_blank">Discovering Dynamic Causal Space for DAG Structure Learning</a>
+                </div>
+                <div class="pe-authors">Fangfu Liu, Wenchang Ma, <strong>An Zhang*</strong>, Xiang Wang, Yueqi Duan, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=WUx80FnfGKy" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-ir">WWW '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2302.05328" target="_blank">Invariant Collaborative Filtering to Popularity Distribution Shift</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Jingnan Zheng, Xiang Wang, Yancheng Yuan, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2302.05328" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-ml">ICLR '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://openreview.net/forum?id=LNpMtk15AS4" target="_blank">Boosting Causal Discovery via Adaptive Sample Reweighting</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Fangfu Liu, Wenchang Ma, Zhibo Cai, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://openreview.net/forum?id=LNpMtk15AS4" target="_blank" class="pe-link"><i class="fa-solid fa-file-lines"></i> OpenReview</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-ir">WSDM '23</span>
+            <div>
+                <div class="pe-title">
+                    <a href="http://staff.ustc.edu.cn/~hexn/papers/wsdm23-CGE.pdf" target="_blank">Cooperative Explanations of Graph Neural Networks</a>
+                </div>
+                <div class="pe-authors">Junfeng Fang, Xiang Wang, <strong>An Zhang</strong>, Zemin Liu, Xiangnan He, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="http://staff.ustc.edu.cn/~hexn/papers/wsdm23-CGE.pdf" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> PDF</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2022 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2022</span>
+            <div class="year-line"></div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-ml">NeurIPS '22</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2210.11054" target="_blank">Incorporating Bias-aware Margins into Contrastive Loss for Collaborative Filtering</a>
+                </div>
+                <div class="pe-authors"><strong>An Zhang</strong>, Wenchang Ma, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2210.11054" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-ml">ICML '22</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2206.07869" target="_blank">Let Invariant Rationale Discovery Inspire Graph Contrastive Learning</a>
+                </div>
+                <div class="pe-authors">Sihang Li, Xiang Wang, <strong>An Zhang</strong>, Yingxin Wu, Xiangnan He, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2206.07869" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-ml">ICLR '22</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2201.12872" target="_blank">Discovering Invariant Rationales for Graph Neural Networks</a>
+                </div>
+                <div class="pe-authors">YingXin Wu, Xiang Wang, <strong>An Zhang</strong>, Xiangnan He, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2201.12872" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-jnl">TPAMI '22</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2204.11028" target="_blank">Reinforced Causal Explainer for Graph Neural Networks</a>
+                </div>
+                <div class="pe-authors">Xiang Wang, Yingxin Wu, <strong>An Zhang*</strong>, Fuli Feng, Xiangnan He, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2204.11028" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-dm">KDD '22</span>
+            <div>
+                <div class="pe-title">
+                    <a href="https://arxiv.org/abs/2206.00242" target="_blank">CrossCBR: Cross-view Contrastive Learning for Bundle Recommendation</a>
+                </div>
+                <div class="pe-authors">Yunshan Ma, Yingzhi He, <strong>An Zhang*</strong>, Xiang Wang, Tat-Seng Chua</div>
+                <div class="pe-links"><a href="https://arxiv.org/abs/2206.00242" target="_blank" class="pe-link"><i class="fa-solid fa-file-pdf"></i> arXiv</a></div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2021 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2021</span>
+            <div class="year-line"></div>
+        </div>
+        <div class="pub-entry" data-tags="graph-ml">
+            <span class="venue v-ml">NeurIPS '21</span>
+            <div>
+                <div class="pe-title">Towards Multi-Grained Explainability for Graph Neural Networks</div>
+                <div class="pe-authors">Xiang Wang, Yingxin Wu, <strong>An Zhang</strong>, Xiangnan He, Tat-Seng Chua</div>
+                <div class="pe-tags"><span class="pet">Graph ML</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════ 2020 ══════════ -->
+    <div class="pub-year-block">
+        <div class="year-heading">
+            <span class="year-label">2020</span>
+            <div class="year-line"></div>
+        </div>
+        <div class="pub-entry" data-tags="graph-recsys">
+            <span class="venue v-ir">SIGIR '20</span>
+            <div>
+                <div class="pe-title">Disentangled Graph Collaborative Filtering</div>
+                <div class="pe-authors">Xiang Wang, Hongye Jin, <strong>An Zhang</strong>, Xiangnan He, Tong Xu, Tat-Seng Chua</div>
+                <div class="pe-tags"><span class="pet">Graph RecSys</span></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<footer>
+    <p>© 2025 An Zhang &nbsp;·&nbsp; University of Science and Technology of China</p>
+    <p style="margin-top:0.3rem;">Design inspired by <a href="https://xiangwang1223.github.io/" target="_blank">Xiang Wang</a> &amp; <a href="https://sites.google.com/view/chaoh" target="_blank">Chao Huang</a></p>
+</footer>
+
+<script>
+// Filter chips
+(function () {
+    var activeTag = null;
+    document.querySelectorAll('.fchip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            var tag = chip.dataset.tag;
+            if (activeTag === tag) {
+                activeTag = null;
+                chip.classList.remove('active');
+                document.querySelectorAll('.pub-entry').forEach(function (e) { e.classList.remove('hidden'); });
+            } else {
+                document.querySelectorAll('.fchip').forEach(function (c) { c.classList.remove('active'); });
+                chip.classList.add('active');
+                activeTag = tag;
+                document.querySelectorAll('.pub-entry').forEach(function (e) {
+                    var tags = (e.dataset.tags || '').split(' ');
+                    e.classList.toggle('hidden', tags.indexOf(tag) === -1);
+                });
+                // Show/hide year blocks with no visible entries
+                document.querySelectorAll('.pub-year-block').forEach(function (block) {
+                    var visible = Array.from(block.querySelectorAll('.pub-entry')).some(function (e) { return !e.classList.contains('hidden'); });
+                    block.style.display = visible ? '' : 'none';
+                });
+            }
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
